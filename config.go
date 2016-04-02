@@ -180,8 +180,9 @@ func init() {
 // now only support ini, next will support json.
 func ParseConfig() (err error) {
 	if AppConfigPath == "" {
-		if utils.FileExists(filepath.Join("conf", "app.conf")) {
-			AppConfigPath = filepath.Join("conf", "app.conf")
+		envPath := os.Getenv("BEEGO_ROOT_PATH")
+		if utils.FileExists(filepath.Join(envPath, "conf", "app.conf")) {
+			AppConfigPath = filepath.Join(envPath, "conf", "app.conf")
 		} else {
 			AppConfig = &beegoAppConfig{config.NewFakeConfig()}
 			return
